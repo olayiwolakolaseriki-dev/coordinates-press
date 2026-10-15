@@ -34,13 +34,23 @@
   <meta name="twitter:description" content="Independent publishing imprint for African thought and socio-cultural criticism. Publisher of The Borrowed Map.">
   <meta name="twitter:image" content="https://coordinatespress.com/assets/images/coordinates-press-logo.jpg">
   
-  <!-- Google Fonts: Newsreader (Editorial Serif) + Plus Jakarta Sans + Space Mono -->
+  <!-- Critical Performance Preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/plus-jakarta-sans-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/space-mono-400.woff2" crossorigin>
+  <link rel="preload" as="image" href="/assets/images/coordinates-press-emblem-nav.webp" type="image/webp">
+  <link rel="preload" as="image" href="/assets/images/coordinates-press-logo-hero.webp" type="image/webp" fetchpriority="high">
+  
+  <!-- Coordinates Press Imprint Production Release v1.3.0 -->
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20261015-1">
+  
+  <!-- Non-Blocking Google Fonts Fallback -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
-  <!-- Coordinates Press Imprint Production Release v1.2.0 -->
-  <link rel="stylesheet" href="/assets/css/styles.css?v=20261009-3">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
+  </noscript>
   
   <!-- Schema.org JSON-LD: Publishing Organization & Primary Catalog Entry -->
   <script type="application/ld+json">
@@ -103,7 +113,10 @@
     <div class="container nav-wrapper">
       <a href="/" class="brand-link" aria-label="Coordinates Press Home">
         <div class="brand-emblem">
-          <img src="/assets/images/coordinates-press-emblem.png" width="42" height="42" alt="Coordinates Press Emblem" class="brand-emblem-img">
+          <picture>
+            <source srcset="/assets/images/coordinates-press-emblem-nav.webp" type="image/webp">
+            <img src="/assets/images/coordinates-press-emblem-nav.png" width="42" height="42" alt="Coordinates Press Emblem" class="brand-emblem-img" decoding="async">
+          </picture>
         </div>
         <div>
           <span class="brand-title">Coordinates Press</span>
@@ -132,7 +145,10 @@
       <div class="container">
         <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2rem;">
           <div style="width: 68px; height: 68px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-gold); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); flex-shrink: 0;">
-            <img src="/assets/images/coordinates-press-logo.jpg" width="68" height="68" alt="Coordinates Press Logo Est. 2026" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <picture>
+              <source srcset="/assets/images/coordinates-press-logo-hero.webp" type="image/webp">
+              <img src="/assets/images/coordinates-press-logo-hero.jpg" width="68" height="68" alt="Coordinates Press Logo Est. 2026" style="width: 100%; height: 100%; object-fit: cover; display: block;" fetchpriority="high" decoding="async">
+            </picture>
           </div>
           <div>
             <span class="hero-coords" style="margin: 0; display: block;">06&deg;27&prime;11&Prime;N &middot; 03&deg;23&prime;45&Prime;E</span>
@@ -161,15 +177,18 @@
           <!-- Book Cover Presentation -->
           <div class="book-cover-wrap">
             <div class="book-cover-shadow">
-              <img 
-                src="/assets/images/the-borrowed-map-cover.jpg" 
-                alt="Front cover of The Borrowed Map by Olayiwola Kola-Seriki" 
-                class="book-cover-img"
-                width="600" 
-                height="955"
-                loading="eager"
-                decoding="async"
-              >
+              <picture>
+                <source srcset="/assets/images/the-borrowed-map-cover.webp" type="image/webp">
+                <img 
+                  src="/assets/images/the-borrowed-map-cover.jpg" 
+                  alt="Front cover of The Borrowed Map by Olayiwola Kola-Seriki" 
+                  class="book-cover-img"
+                  width="600" 
+                  height="955"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </picture>
             </div>
             <p style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted); margin-top: 1.25rem; letter-spacing: 0.1em;">
               FLAGSHIP RELEASE &middot; TRADE NON-FICTION
@@ -276,14 +295,18 @@
       <div class="container">
         <div class="founder-card">
           <div class="founder-portrait">
-            <img 
-              src="/assets/images/author-portrait.jpg" 
-              alt="Olayiwola Kola-Seriki, Founder of Coordinates Press" 
-              width="579" 
-              height="864"
-              loading="lazy"
-              decoding="async"
-            >
+            <picture>
+              <source srcset="/assets/images/author-portrait.webp" type="image/webp">
+              <img 
+                src="/assets/images/author-portrait.jpg" 
+                alt="Olayiwola Kola-Seriki, Founder of Coordinates Press" 
+                width="220" 
+                height="328"
+                style="width: 100%; height: auto; display: block;"
+                loading="lazy"
+                decoding="async"
+              >
+            </picture>
           </div>
           <div>
             <div class="eyebrow" style="margin-bottom: 0.5rem;">Founder &middot; Editorial Vision</div>
