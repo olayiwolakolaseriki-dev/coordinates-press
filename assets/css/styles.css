@@ -81,7 +81,8 @@
   src: url('/assets/fonts/space-mono-700.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-:root {
+:root,
+:root[data-theme="dark"] {
   --bg-main: #0a0b0d;
   --bg-surface: #111317;
   --bg-card: #17191f;
@@ -99,6 +100,28 @@
   --text-primary: #f5f4ef;
   --text-secondary: #b0b3be;
   --text-muted: #727582;
+
+  --header-bg: rgba(10, 11, 13, 0.88);
+  --footer-bg: #07080a;
+  --grid-glow: rgba(201, 164, 97, 0.04);
+  --grid-line: rgba(255, 255, 255, 0.015);
+  --cta-bg: rgba(201, 164, 97, 0.08);
+  --emblem-pill-bg: rgba(201, 164, 97, 0.06);
+  --emblem-bg: #0d0e12;
+  --emblem-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --btn-primary-text: #0c0d0f;
+  --btn-secondary-hover: rgba(255, 255, 255, 0.04);
+  --cover-shadow: 
+    0 12px 36px rgba(0, 0, 0, 0.6),
+    0 2px 10px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  --cover-shadow-hover: 
+    0 18px 48px rgba(0, 0, 0, 0.75),
+    0 4px 14px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--border-gold);
+  --portrait-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --toggle-bg: rgba(255, 255, 255, 0.05);
+  --toggle-hover-bg: rgba(201, 164, 97, 0.14);
   
   --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -106,6 +129,48 @@
   
   --container-max: 1160px;
   --container-narrow: 840px;
+}
+
+:root[data-theme="light"] {
+  --bg-main: #FAF8F4;
+  --bg-surface: #F2EFE8;
+  --bg-card: #FFFFFF;
+  --bg-elevated: #EAE4D9;
+
+  --border-subtle: rgba(20, 22, 26, 0.08);
+  --border-medium: rgba(20, 22, 26, 0.14);
+  --border-gold: rgba(154, 114, 40, 0.28);
+
+  --accent-gold: #9A7228;
+  --accent-gold-hover: #7D5B1C;
+  --accent-terracotta: #B25634;
+  --accent-terracotta-hover: #964527;
+
+  --text-primary: #14161A;
+  --text-secondary: #4A4D57;
+  --text-muted: #6C707D;
+
+  --header-bg: rgba(250, 248, 244, 0.90);
+  --footer-bg: #EFECE4;
+  --grid-glow: rgba(154, 114, 40, 0.05);
+  --grid-line: rgba(20, 22, 26, 0.035);
+  --cta-bg: rgba(154, 114, 40, 0.08);
+  --emblem-pill-bg: rgba(154, 114, 40, 0.07);
+  --emblem-bg: #111317;
+  --emblem-shadow: 0 4px 12px rgba(20, 22, 26, 0.12);
+  --btn-primary-text: #FFFFFF;
+  --btn-secondary-hover: rgba(20, 22, 26, 0.05);
+  --cover-shadow: 
+    0 14px 36px rgba(20, 22, 26, 0.14),
+    0 3px 10px rgba(20, 22, 26, 0.08),
+    0 0 0 1px rgba(20, 22, 26, 0.08);
+  --cover-shadow-hover: 
+    0 20px 48px rgba(20, 22, 26, 0.2),
+    0 6px 16px rgba(20, 22, 26, 0.12),
+    0 0 0 1px var(--border-gold);
+  --portrait-shadow: 0 10px 26px rgba(20, 22, 26, 0.12);
+  --toggle-bg: rgba(20, 22, 26, 0.05);
+  --toggle-hover-bg: rgba(154, 114, 40, 0.12);
 }
 
 *, *::before, *::after {
@@ -131,6 +196,7 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Background Subtle Cartographic Grid */
@@ -142,9 +208,9 @@ body::before {
   width: 100vw;
   height: 100vh;
   background-image: 
-    radial-gradient(circle at 50% 20%, rgba(201, 164, 97, 0.04) 0%, transparent 60%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    radial-gradient(circle at 50% 20%, var(--grid-glow) 0%, transparent 60%),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 100% 100%, 80px 80px, 80px 80px;
   pointer-events: none;
   z-index: 0;
@@ -201,11 +267,12 @@ h1, h2, h3, h4 {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 11, 13, 0.88);
+  background: var(--header-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-subtle);
   padding: 1.15rem 0;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .nav-wrapper {
@@ -231,8 +298,8 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-  background: #0d0e12;
+  box-shadow: var(--emblem-shadow);
+  background: var(--emblem-bg);
 }
 
 .brand-emblem-img {
@@ -248,7 +315,7 @@ h1, h2, h3, h4 {
   gap: 0.85rem;
   margin-bottom: 1.75rem;
   padding: 0.4rem 1.15rem 0.4rem 0.4rem;
-  background: rgba(201, 164, 97, 0.06);
+  background: var(--emblem-pill-bg);
   border: 1px solid var(--border-gold);
   border-radius: 40px;
 }
@@ -305,7 +372,7 @@ h1, h2, h3, h4 {
   padding: 0.55rem 1.15rem;
   border-radius: 6px;
   border: 1px solid var(--border-gold);
-  background: rgba(201, 164, 97, 0.08);
+  background: var(--cta-bg);
   color: var(--accent-gold);
   text-decoration: none;
   font-size: 0.85rem;
@@ -315,7 +382,7 @@ h1, h2, h3, h4 {
 
 .nav-cta:hover {
   background: var(--accent-gold);
-  color: var(--bg-main);
+  color: var(--btn-primary-text);
   border-color: var(--accent-gold);
 }
 
@@ -337,7 +404,7 @@ h1, h2, h3, h4 {
 
 .btn-primary {
   background-color: var(--accent-gold);
-  color: #0c0d0f;
+  color: var(--btn-primary-text);
   border-color: var(--accent-gold);
 }
 
@@ -355,7 +422,7 @@ h1, h2, h3, h4 {
 
 .btn-secondary:hover {
   border-color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--btn-secondary-hover);
 }
 
 /* Hero Section */
@@ -424,19 +491,13 @@ h1, h2, h3, h4 {
   margin: 0 auto;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 
-    0 12px 36px rgba(0, 0, 0, 0.6),
-    0 2px 10px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: var(--cover-shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .book-cover-shadow:hover {
   transform: translateY(-4px);
-  box-shadow: 
-    0 18px 48px rgba(0, 0, 0, 0.75),
-    0 4px 14px rgba(0, 0, 0, 0.5),
-    0 0 0 1px var(--border-gold);
+  box-shadow: var(--cover-shadow-hover);
 }
 
 .book-cover-img {
@@ -548,7 +609,7 @@ h1, h2, h3, h4 {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--border-medium);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  box-shadow: var(--portrait-shadow);
   margin: 0 auto;
 }
 
@@ -577,7 +638,8 @@ h1, h2, h3, h4 {
 .site-footer {
   border-top: 1px solid var(--border-subtle);
   padding: 4.5rem 0 2.5rem;
-  background: #07080a;
+  background: var(--footer-bg);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .footer-grid {
@@ -645,5 +707,94 @@ h1, h2, h3, h4 {
   }
   .nav-links {
     display: none;
+  }
+}
+
+/* Header Controls & Theme Toggle */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-logo-box {
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--portrait-shadow);
+  background: var(--emblem-bg);
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-medium);
+  background: var(--toggle-bg);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: var(--toggle-hover-bg);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+:root[data-theme="dark"] .theme-toggle .moon-icon,
+:root:not([data-theme]) .theme-toggle .moon-icon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .sun-icon,
+:root:not([data-theme]) .theme-toggle .sun-icon {
+  display: block;
+}
+
+:root[data-theme="light"] .theme-toggle .sun-icon {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .moon-icon {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .theme-toggle {
+    padding: 0.5rem;
+    width: 36px;
+    height: 36px;
+  }
+
+  .theme-toggle .theme-label {
+    display: none;
+  }
+
+  .nav-cta {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.8rem;
   }
 }

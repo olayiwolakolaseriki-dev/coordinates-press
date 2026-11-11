@@ -41,8 +41,24 @@
   <link rel="preload" as="image" href="/assets/images/coordinates-press-emblem-nav.webp" type="image/webp">
   <link rel="preload" as="image" href="/assets/images/coordinates-press-logo-hero.webp" type="image/webp" fetchpriority="high">
   
-  <!-- Coordinates Press Imprint Production Release v1.3.0 -->
-  <link rel="stylesheet" href="/assets/css/styles.css?v=20261015-1">
+  <!-- Coordinates Press Imprint Production Release v1.4.0 -->
+  <meta name="theme-color" content="#0a0b0d" id="metaThemeColor">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('coordinatespress_theme');
+        var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        var meta = document.getElementById('metaThemeColor');
+        if (meta) {
+          meta.setAttribute('content', theme === 'light' ? '#FAF8F4' : '#0a0b0d');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20261111-1">
   
   
   <!-- Schema.org JSON-LD: Publishing Organization & Primary Catalog Entry -->
@@ -125,7 +141,24 @@
         </ul>
       </nav>
 
-      <div>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to bright mode" title="Switch to bright mode" aria-pressed="false">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+          <span class="theme-label" id="themeLabel">Bright</span>
+        </button>
         <a href="#rights" class="nav-cta">Inquire &amp; Rights</a>
       </div>
     </div>
@@ -136,7 +169,7 @@
     <section class="hero-section">
       <div class="container">
         <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2rem;">
-          <div style="width: 68px; height: 68px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-gold); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); flex-shrink: 0;">
+          <div class="hero-logo-box">
             <picture>
               <source srcset="/assets/images/coordinates-press-logo-hero.webp" type="image/webp">
               <img src="/assets/images/coordinates-press-logo-hero.jpg" width="68" height="68" alt="Coordinates Press Logo Est. 2026" style="width: 100%; height: 100%; object-fit: cover; display: block;" fetchpriority="high" decoding="async">
@@ -396,5 +429,40 @@
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var toggle = document.getElementById('themeToggle');
+      var label = document.getElementById('themeLabel');
+      var meta = document.getElementById('metaThemeColor');
+      if (!toggle) return;
+
+      function syncUI(theme) {
+        var isLight = theme === 'light';
+        toggle.setAttribute('aria-pressed', String(isLight));
+        var nextAction = isLight ? 'Switch to dark mode' : 'Switch to bright mode';
+        toggle.setAttribute('aria-label', nextAction);
+        toggle.setAttribute('title', nextAction);
+        if (label) {
+          label.textContent = isLight ? 'Dark' : 'Bright';
+        }
+        if (meta) {
+          meta.setAttribute('content', isLight ? '#FAF8F4' : '#0a0b0d');
+        }
+      }
+
+      var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      syncUI(current);
+
+      toggle.addEventListener('click', function () {
+        var now = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        var next = now === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        try {
+          localStorage.setItem('coordinatespress_theme', next);
+        } catch (e) {}
+        syncUI(next);
+      });
+    })();
+  </script>
 </body>
 </html>
